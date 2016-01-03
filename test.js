@@ -1,6 +1,3 @@
-var random = require('./index').Alea;
+var random = require('./index').KISS07(10);
 
-
-random.seed(10);
-
-console.log(random());
+console.log(random.fract53());

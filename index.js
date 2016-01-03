@@ -7,43 +7,36 @@ var MRG32k3a = require('./support/js/MRG32k3a');
 var Xorshift03 = require('./support/js/Xorshift03');
 
 
-(function() {
+(function() {  
   
-  var _seed = +new Date();
-  var rand = null;
-  
-  function random(generator, from, to) {
-    if(!rand) rand = generator(_seed);
-    
-    if (typeof from !== 'undefined' && typeof to === 'undefined') {
-      return from * rand() | 0;
-    } else if (typeof from !== 'undefined' && typeof to !== 'undefined') {
-      return ((to - from) * rand() + from) | 0;
-    } else {
-      return rand();
+  function random(generator) {
+    var rand = null;
+    return function(seed) {
+      rand = generator(seed || +new Date());
+      
+      function prng(from, to) {        
+        if (typeof from !== 'undefined' && typeof to === 'undefined') {
+          return from * rand() | 0;
+        } else if (typeof from !== 'undefined' && typeof to !== 'undefined') {
+          return ((to - from) * rand() + from) | 0;
+        } else {
+          return rand();
+        }
+      }
+      
+      return Object.assign(prng, rand);
     }
   }
   
-  function exports() {
-    return random.apply(this, [Alea].concat( Array.prototype.slice.call(arguments) ) );
-  }
-  
-  var seed = function(newSeed) {
-    _seed = newSeed;
-  }
-   
-  exports.Alea = random.bind(this, Alea);
-  exports.KISS07 = random.bind(this, KISS07);
-  exports.Kybos = random.bind(this, Kybos);
-  exports.LFib = random.bind(this, LFib);
-  exports.LFib4 = random.bind(this, LFib4);
-  exports.MRG32k3a = random.bind(this, MRG32k3a);
-  exports.Xorshift03 = random.bind(this, Xorshift03);
-  
-  var keys = Object.keys(exports);
-  for(var i = 0, l = keys.length; i < l; i++) {
-    exports[keys[i]].seed = seed;
-  }
+  var exports = {
+    Alea: random(Alea),
+    KISS07: random(KISS07),
+    Kybos: random(Kybos),
+    LFib: random(LFib),
+    LFib4: random(LFib4),
+    MRG32k3a: random(MRG32k3a),
+    Xorshift03: random(Xorshift03)
+  };
   
   if (typeof module === 'undefined') {
     this['prng'] = exports;

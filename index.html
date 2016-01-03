@@ -6,15 +6,17 @@
   <script src="dist/prng.min.js"></script>
   <script>
     var random = prng;
-    random["Math.random"] = Math.random;
-    random["Math.random"].seed = function() {};
+    random["Math.random"] = function() {
+      return Math.random;
+    }
     
     var seed = +new Date();
     var keys = Object.keys(random);
     
+    document.write('<strong>32 Bit Fraction Test</strong><br><br>');
+    
     for(var i = 0, l = keys.length; i < l; i++) {
-      var rand = random[keys[i]];
-      rand.seed(seed);
+      var rand = random[keys[i]](seed);
       
       var dist = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1];
       var hist = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
@@ -24,6 +26,82 @@
       
       for (var j = 0; j < loopNumber; j++) {
         var result = rand();
+        resultLoop: for(var k = 0, m = dist.length; k < m; k++) {
+          if (result < dist[k]) {
+            hist[k] = hist[k] + 1;
+            break resultLoop;
+          }
+        }
+      }
+      
+      var end = +new Date();
+      var time = end - start;
+      
+      for(var j = 0, k = hist.length; j < k; j++) {
+        hist[j] = (hist[j] / loopNumber) * 100 | 0;
+      }
+      
+      document.write(keys[i] + '<br>');
+      document.write("time: " + time + '<br>');
+      document.write('histogram: ' + JSON.stringify(hist).replace(/,/g, ', ') + '<br><br>');
+        
+    }
+    
+    delete random["Math.random"];
+    seed = +new Date();
+    keys = Object.keys(random);
+    
+    document.write('<strong>32 Bit uint Test</strong><br><br>');
+    
+    for(var i = 0, l = keys.length; i < l; i++) {
+      var rand = random[keys[i]](seed);
+      
+      var size = 0x100000000;
+      var dist = [0.1 * size, 0.2 * size, 0.3 * size, 0.4 * size, 0.5 * size, 0.6 * size, 0.7 * size, 0.8 * size, 0.9 * size, size];
+      var hist = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+      var loopNumber = 100000;
+      
+      var start = +new Date();
+      
+      for (var j = 0; j < loopNumber; j++) {
+        var result = rand.uint32();
+        resultLoop: for(var k = 0, m = dist.length; k < m; k++) {
+          if (result < dist[k]) {
+            hist[k] = hist[k] + 1;
+            break resultLoop;
+          }
+        }
+      }
+      
+      var end = +new Date();
+      var time = end - start;
+      
+      for(var j = 0, k = hist.length; j < k; j++) {
+        hist[j] = (hist[j] / loopNumber) * 100 | 0;
+      }
+      
+      document.write(keys[i] + '<br>');
+      document.write("time: " + time + '<br>');
+      document.write('histogram: ' + JSON.stringify(hist).replace(/,/g, ', ') + '<br><br>');
+        
+    }
+    
+    seed = +new Date();
+    keys = Object.keys(random);
+    
+    document.write('<strong>53 Bit Fraction Test</strong><br><br>');
+    
+    for(var i = 0, l = keys.length; i < l; i++) {
+      var rand = random[keys[i]](seed);
+      
+      var dist = [0.1, 0.2, 0.3, 0.4, 0.5, 0.6, 0.7, 0.8, 0.9, 1];
+      var hist = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+      var loopNumber = 100000;
+      
+      var start = +new Date();
+      
+      for (var j = 0; j < loopNumber; j++) {
+        var result = rand.fract53();
         resultLoop: for(var k = 0, m = dist.length; k < m; k++) {
           if (result < dist[k]) {
             hist[k] = hist[k] + 1;
