@@ -5,7 +5,9 @@
   <title>Document</title>
   <script src="dist/prng.min.js"></script>
   <script>
-    var random = prng.exports;
+    var random = prng;
+    random["Math.random"] = Math.random;
+    random["Math.random"].seed = function() {};
     
     var seed = +new Date();
     var keys = Object.keys(random);
@@ -40,7 +42,7 @@
       document.write(keys[i] + '<br>');
       document.write("time: " + time + '<br>');
       document.write('histogram: ' + JSON.stringify(hist).replace(/,/g, ', ') + '<br><br>');
-      
+        
     }
     
   </script>

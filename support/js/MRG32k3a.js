@@ -1,6 +1,6 @@
 var Mash = require('./Mash');
 
-(function(module) {
+(function() {
   
   // From http://baagoe.com/en/RandomMusings/javascript/
   function MRG32k3a() {
@@ -84,6 +84,10 @@ var Mash = require('./Mash');
     } (Array.prototype.slice.call(arguments)));
   };
   
-  module.exports = MRG32k3a;
+  if (typeof module === 'undefined') {
+    this['mrg32k3a'] = MRG32k3a;
+  } else {
+    module.exports = MRG32k3a;
+  }
 
-})(typeof module === 'undefined' ? this['mrg32k3a'] = {} : module);
+})();

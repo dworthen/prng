@@ -1,6 +1,6 @@
-var random = require('./index').Xorshift03;
+var random = require('./index').Alea;
 
 
-// random.seed(10);
+random.seed(10);
 
 console.log(random());

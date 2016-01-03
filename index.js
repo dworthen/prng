@@ -1,4 +1,3 @@
-var Mash = require('./support/js/Mash');
 var Alea = require('./support/js/Alea');
 var KISS07 = require('./support/js/KISS07');
 var Kybos = require('./support/js/Kybos');
@@ -8,7 +7,7 @@ var MRG32k3a = require('./support/js/MRG32k3a');
 var Xorshift03 = require('./support/js/Xorshift03');
 
 
-(function(module) {
+(function() {
   
   var _seed = +new Date();
   var rand = null;
@@ -46,8 +45,10 @@ var Xorshift03 = require('./support/js/Xorshift03');
     exports[keys[i]].seed = seed;
   }
   
-  exports.seed = seed;
+  if (typeof module === 'undefined') {
+    this['prng'] = exports;
+  } else {
+    module.exports = exports;
+  }
   
-  module.exports = exports;
-  
-})(typeof module === 'undefined' ? this['prng'] = {} : module);
+})();

@@ -1,6 +1,6 @@
 var Mash = require('./Mash');
 
-(function(module) {
+(function() {
   
   // From http://baagoe.com/en/RandomMusings/javascript/
   function LFib() {
@@ -60,6 +60,10 @@ var Mash = require('./Mash');
     } (Array.prototype.slice.call(arguments)));
   };
   
-  module.exports = LFib;
+  if (typeof module === 'undefined') {
+    this['lfib'] = LFib;
+  } else {
+    module.exports = LFib;
+  }
 
-})(typeof module === 'undefined' ? this['lfib'] = {} : module);
+})();

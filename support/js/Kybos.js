@@ -1,6 +1,6 @@
 var Mash = require('./Mash');
 
-(function(module) {
+(function() {
   
   // From http://baagoe.com/en/RandomMusings/javascript/
   function Kybos() {
@@ -83,6 +83,10 @@ var Mash = require('./Mash');
     } (Array.prototype.slice.call(arguments)));
   };
   
-  module.exports = Kybos;
+  if (typeof module === 'undefined') {
+    this['kybos'] = Kybos;
+  } else {
+    module.exports = Kybos;
+  }
 
-})(typeof module === 'undefined' ? this['kybos'] = {} : module);
+})();

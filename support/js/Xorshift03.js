@@ -1,6 +1,6 @@
 var Mash = require('./Mash');
 
-(function(module) {
+(function() {
   
   // From http://baagoe.com/en/RandomMusings/javascript/
   function Xorshift03() {
@@ -51,6 +51,10 @@ var Mash = require('./Mash');
     } (Array.prototype.slice.call(arguments)));
   };
   
-  module.exports = Xorshift03;
+  if (typeof module === 'undefined') {
+    this['xorshift03'] = Xorshift03;
+  } else {
+    module.exports = Xorshift03;
+  }
 
-})(typeof module === 'undefined' ? this['xorshift03'] = {} : module);
+})();

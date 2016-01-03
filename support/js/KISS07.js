@@ -1,6 +1,6 @@
 var Mash = require('./Mash');
 
-(function(module) {
+(function() {
   
   // From http://baagoe.com/en/RandomMusings/javascript/
   function KISS07() {
@@ -69,7 +69,11 @@ var Mash = require('./Mash');
       return random;
     } (Array.prototype.slice.call(arguments)));
   };
+  
+  if (typeof module === 'undefined') {
+    this['kiss07'] = KISS07;
+  } else {
+    module.exports = KISS07;
+  }
 
-  module.exports = KISS07;
-
-})(typeof module === 'undefined' ? this['kiss07'] = {} : module);
+})();

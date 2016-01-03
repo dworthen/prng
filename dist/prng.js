@@ -2,9 +2,9 @@ function __require__(module) {
   var path = module.split('/');
   var mod = path[path.length - 1].split('.');
   mod = mod.slice(0, mod.length - 1 == 0 ? 1 : mod.length - 1).join('').toLowerCase();
-  return this[mod].exports;
+  return this[mod];
 }
-(function(module) {
+(function() {
   
   // From http://baagoe.com/en/RandomMusings/javascript/
   // Johannes Baagøe <baagoe@baagoe.com>, 2010
@@ -28,15 +28,20 @@ function __require__(module) {
 
     mash.version = 'Mash 0.9';
     return mash;
+    
   }
   
-  module.exports = Mash;
+  if (typeof module === 'undefined') {
+    this['mash'] = Mash;
+  } else {
+    module.exports = Mash;
+  }
 
-})(typeof module === 'undefined' ? this['mash'] = {} : module);
+})();
 
 var Mash = __require__('./Mash');
 
-(function(module) {
+(function() {
   
   // From http://baagoe.com/en/RandomMusings/javascript/
   function Alea() {
@@ -91,13 +96,17 @@ var Mash = __require__('./Mash');
     } (Array.prototype.slice.call(arguments)));
   };
   
-  module.exports = Alea;
+  if (typeof module === 'undefined') {
+    this['alea'] = Alea;
+  } else {
+    module.exports = Alea;
+  }
 
-})(typeof module === 'undefined' ? this['alea'] = {} : module);
+})();
 
 var Mash = __require__('./Mash');
 
-(function(module) {
+(function() {
   
   // From http://baagoe.com/en/RandomMusings/javascript/
   function KISS07() {
@@ -166,14 +175,18 @@ var Mash = __require__('./Mash');
       return random;
     } (Array.prototype.slice.call(arguments)));
   };
+  
+  if (typeof module === 'undefined') {
+    this['kiss07'] = KISS07;
+  } else {
+    module.exports = KISS07;
+  }
 
-  module.exports = KISS07;
-
-})(typeof module === 'undefined' ? this['kiss07'] = {} : module);
+})();
 
 var Mash = __require__('./Mash');
 
-(function(module) {
+(function() {
   
   // From http://baagoe.com/en/RandomMusings/javascript/
   function Kybos() {
@@ -256,13 +269,17 @@ var Mash = __require__('./Mash');
     } (Array.prototype.slice.call(arguments)));
   };
   
-  module.exports = Kybos;
+  if (typeof module === 'undefined') {
+    this['kybos'] = Kybos;
+  } else {
+    module.exports = Kybos;
+  }
 
-})(typeof module === 'undefined' ? this['kybos'] = {} : module);
+})();
 
 var Mash = __require__('./Mash');
 
-(function(module) {
+(function() {
   
   // From http://baagoe.com/en/RandomMusings/javascript/
   function LFib() {
@@ -322,12 +339,16 @@ var Mash = __require__('./Mash');
     } (Array.prototype.slice.call(arguments)));
   };
   
-  module.exports = LFib;
+  if (typeof module === 'undefined') {
+    this['lfib'] = LFib;
+  } else {
+    module.exports = LFib;
+  }
 
-})(typeof module === 'undefined' ? this['lfib'] = {} : module);
+})();
 var Mash = __require__('./Mash');
 
-(function(module) {
+(function() {
   
   // From http://baagoe.com/en/RandomMusings/javascript/
   function LFIB4() {
@@ -398,12 +419,16 @@ var Mash = __require__('./Mash');
     } (Array.prototype.slice.call(arguments)));
   };
   
-  module.exports = LFIB4;
+  if (typeof module === 'undefined') {
+    this['lfib4'] = LFIB4;
+  } else {
+    module.exports = LFIB4;
+  }
 
-})(typeof module === 'undefined' ? this['lfib4'] = {} : module);
+})();
 var Mash = __require__('./Mash');
 
-(function(module) {
+(function() {
   
   // From http://baagoe.com/en/RandomMusings/javascript/
   function MRG32k3a() {
@@ -487,12 +512,16 @@ var Mash = __require__('./Mash');
     } (Array.prototype.slice.call(arguments)));
   };
   
-  module.exports = MRG32k3a;
+  if (typeof module === 'undefined') {
+    this['mrg32k3a'] = MRG32k3a;
+  } else {
+    module.exports = MRG32k3a;
+  }
 
-})(typeof module === 'undefined' ? this['mrg32k3a'] = {} : module);
+})();
 var Mash = __require__('./Mash');
 
-(function(module) {
+(function() {
   
   // From http://baagoe.com/en/RandomMusings/javascript/
   function Xorshift03() {
@@ -543,10 +572,13 @@ var Mash = __require__('./Mash');
     } (Array.prototype.slice.call(arguments)));
   };
   
-  module.exports = Xorshift03;
+  if (typeof module === 'undefined') {
+    this['xorshift03'] = Xorshift03;
+  } else {
+    module.exports = Xorshift03;
+  }
 
-})(typeof module === 'undefined' ? this['xorshift03'] = {} : module);
-var Mash = __require__('./support/js/Mash');
+})();
 var Alea = __require__('./support/js/Alea');
 var KISS07 = __require__('./support/js/KISS07');
 var Kybos = __require__('./support/js/Kybos');
@@ -556,7 +588,7 @@ var MRG32k3a = __require__('./support/js/MRG32k3a');
 var Xorshift03 = __require__('./support/js/Xorshift03');
 
 
-(function(module) {
+(function() {
   
   var _seed = +new Date();
   var rand = null;
@@ -594,8 +626,10 @@ var Xorshift03 = __require__('./support/js/Xorshift03');
     exports[keys[i]].seed = seed;
   }
   
-  exports.seed = seed;
+  if (typeof module === 'undefined') {
+    this['prng'] = exports;
+  } else {
+    module.exports = exports;
+  }
   
-  module.exports = exports;
-  
-})(typeof module === 'undefined' ? this['prng'] = {} : module);
+})();

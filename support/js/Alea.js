@@ -1,6 +1,6 @@
 var Mash = require('./Mash');
 
-(function(module) {
+(function() {
   
   // From http://baagoe.com/en/RandomMusings/javascript/
   function Alea() {
@@ -55,6 +55,10 @@ var Mash = require('./Mash');
     } (Array.prototype.slice.call(arguments)));
   };
   
-  module.exports = Alea;
+  if (typeof module === 'undefined') {
+    this['alea'] = Alea;
+  } else {
+    module.exports = Alea;
+  }
 
-})(typeof module === 'undefined' ? this['alea'] = {} : module);
+})();

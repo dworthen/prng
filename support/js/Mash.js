@@ -1,4 +1,4 @@
-(function(module) {
+(function() {
   
   // From http://baagoe.com/en/RandomMusings/javascript/
   // Johannes Baagøe <baagoe@baagoe.com>, 2010
@@ -22,8 +22,13 @@
 
     mash.version = 'Mash 0.9';
     return mash;
+    
   }
   
-  module.exports = Mash;
+  if (typeof module === 'undefined') {
+    this['mash'] = Mash;
+  } else {
+    module.exports = Mash;
+  }
 
-})(typeof module === 'undefined' ? this['mash'] = {} : module);
+})();
