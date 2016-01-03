@@ -102,9 +102,25 @@ I present several PRNGs that should have much better statistical properties than
 
 We shal take `Alea` as example, but the other PRNGs - `MRG32k3a`, `KISS07`, etc - share the same interface.
 
+### Node
+
+```javascript
+  var Alea = require('prng').Alea;
+```
+
+### Browser
+
+Include one of the prng scripts from the `dist` directory.
+
+```javascript
+  var Alea = prng.Alea;
+```
+
 #### Simple usage
 
 ```javascript
+  var Alea = ...
+
   var random = [new] Alea([...]);
 ```
 

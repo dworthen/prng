@@ -12,7 +12,10 @@ var Xorshift03 = require('./support/js/Xorshift03');
   function random(generator) {
     var rand = null;
     return function(seed) {
-      rand = generator(seed || +new Date());
+      var args = Array.prototype.slice.call(arguments);
+      rand = args.length
+        ? generator.apply(this, args)
+        : generator();
       
       function prng(from, to) {        
         if (typeof from !== 'undefined' && typeof to === 'undefined') {
