@@ -2,13 +2,17 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Document</title>
-  <script src="dist/prng.min.js"></script>
+  <title>Pseudo Random Number Generators in JavaScript</title>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway:400,300,600">
   <script>
-    var random = prng;
+  /*
+    var random = PRNG;
+    delete random['Mash'];
+    
     random["Math.random"] = function() {
       return Math.random;
     }
+
     
     var seed = +new Date();
     var keys = Object.keys(random);
@@ -38,7 +42,7 @@
       var time = end - start;
       
       for(var j = 0, k = hist.length; j < k; j++) {
-        hist[j] = (hist[j] / loopNumber) * 100 | 0;
+        hist[j] = ((hist[j] / loopNumber) * 100).toString().slice(0,4) + "%";
       }
       
       document.write(keys[i] + '<br>');
@@ -56,7 +60,7 @@
     for(var i = 0, l = keys.length; i < l; i++) {
       var rand = random[keys[i]](seed);
       
-      var size = 0x100000000;
+      var size = 0x100000000; // 2^32
       var dist = [0.1 * size, 0.2 * size, 0.3 * size, 0.4 * size, 0.5 * size, 0.6 * size, 0.7 * size, 0.8 * size, 0.9 * size, size];
       var hist = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
       var loopNumber = 100000;
@@ -77,7 +81,7 @@
       var time = end - start;
       
       for(var j = 0, k = hist.length; j < k; j++) {
-        hist[j] = (hist[j] / loopNumber) * 100 | 0;
+        hist[j] = ((hist[j] / loopNumber) * 100).toString().slice(0,4) + "%";
       }
       
       document.write(keys[i] + '<br>');
@@ -114,7 +118,7 @@
       var time = end - start;
       
       for(var j = 0, k = hist.length; j < k; j++) {
-        hist[j] = (hist[j] / loopNumber) * 100 | 0;
+        hist[j] = ((hist[j] / loopNumber) * 100).toString().slice(0,4) + "%";
       }
       
       document.write(keys[i] + '<br>');
@@ -122,10 +126,75 @@
       document.write('histogram: ' + JSON.stringify(hist).replace(/,/g, ', ') + '<br><br>');
         
     }
-    
+    */
   </script>
+  <style>
+
+    .bar rect {
+      fill: steelblue;
+    }
+
+    .bar text {
+      fill: #fff;
+      font: 10px sans-serif;
+    }
+
+    .container {
+      /*border: 1px solid #d5d5d5;*/
+    }
+
+    hr {
+      color: #eeeeee;
+    }
+  </style>
 </head>
 <body>
-  
+
+  <div class="container">
+
+    <!-- columns should be the immediate child of a .row -->
+    <div class="row">
+      <h2>Pseudo-Random Number Generators in JavaScript</h2>
+
+      <hr/>
+
+      <h4>32 Bit Fraction Test</h4>
+
+      <h5><strong>Alea</strong></h5>
+
+      <svg id="Alea" width="960" height="200"></svg>
+
+      <h5><strong>KISS07</strong></h5>
+
+      <svg id="KISS07" width="960" height="200"></svg>
+
+      <h5><strong>Kybos</strong></h5>
+
+      <svg id="Kybos" width="960" height="200"></svg>
+
+      <h5><strong>LFib</strong></h5>
+
+      <svg id="LFib" width="960" height="200"></svg>
+
+      <h5><strong>LFib4</strong></h5>
+
+      <svg id="LFib4" width="960" height="200"></svg>
+
+      <h5><strong>MRG32k3a</strong></h5>
+
+      <svg id="MRG32k3a" width="960" height="200"></svg>
+
+      <h5><strong>Xorshift03</strong></h5>
+
+      <svg id="Xorshift03" width="960" height="200"></svg>
+
+      <h5><strong>Invwk</strong></h5>
+
+      <svg id="Invwk" width="960" height="200"></svg>
+      
+    </div>
+
+  </div>
+  <script src="./app.min.js"></script>
 </body>
 </html>

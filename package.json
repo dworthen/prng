@@ -1,10 +1,14 @@
 {
   "name": "prng",
   "version": "1.0.0",
-  "description": "0.0.1",
+  "description": "A collection of pseudorandom number generators by Johannes Baagøe's.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build:script": "webpack",
+    "build:node": "webpack --commonjs",
+    "dev": "webpack --watch --hot",
+    "serve": "webpack-dev-server --inline --hot"
   },
   "repository": {
     "type": "git",
@@ -12,24 +16,35 @@
   },
   "keywords": [
     "prng",
-    "random"
+    "random",
+    "pseudorandom number generators",
+    "alea",
+    "kiss",
+    "kybos",
+    "lfib",
+    "lfib4",
+    "mrg32k3a",
+    "xorshift"
   ],
   "author": "dworthen",
-  "license": "ISC",
+  "license": "See license.md",
   "bugs": {
     "url": "https://github.com/dworthen/prng/issues"
   },
   "homepage": "https://github.com/dworthen/prng#readme",
-  "dependencies": {
-    "lodash": "^3.10.1"
-  },
   "devDependencies": {
-    "browser-sync": "^2.10.1",
-    "gulp": "^3.9.0",
-    "gulp-concat": "^2.6.0",
-    "gulp-rename": "^1.2.2",
-    "gulp-replace": "^0.5.4",
-    "gulp-sourcemaps": "^1.6.0",
-    "gulp-uglify": "^1.5.1"
+    "babel-core": "*",
+    "babel-loader": "*",
+    "babel-preset-latest": "*",
+    "css-loader": "*",
+    "d3": "^4.4.0",
+    "file-loader": "*",
+    "lodash": "^4.17.2",
+    "skeleton-css": "^2.0.4",
+    "style-loader": "*",
+    "url-loader": "*",
+    "webpack": "*",
+    "webpack-dev-server": "*",
+    "yargs": "*"
   }
 }
